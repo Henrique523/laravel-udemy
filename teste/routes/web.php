@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Parâmetro para a rota
+// O nome da variável passada para a funcao anonima nao precisa ser o nome dito na rota,
+// apesar de ser recomendado
+Route::get('/ola/{nome}/{sobrenome}', function ($nome, $sobrenome) {
+    echo "Ola! Seja bem vindo, " . $nome . " " . $sobrenome . "!";
+});
