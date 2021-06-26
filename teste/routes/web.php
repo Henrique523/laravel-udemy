@@ -11,6 +11,8 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -28,3 +30,12 @@ Route::get('/seunome/{nome?}', function ($nome = null) {
         return "Ola! Seja bem vindo, " . $nome . "!";
     echo "Nao foi passado nenhum parametro.";
 });
+
+// O metodo "where" eh usado para validar os parametros da rota passados.
+// Caso haja alguma incompatibilidade entre o que foi passado e o parametro de validacao,
+// o laravel retornara que a rota nao foi encontrada.
+Route::get('/rotacomregras/{nome}/{n}', function ($nome, $n) {
+    for ($i = 0; $i < $n; $i++) {
+      echo "Ola! Seja bem vindo, $nome! <br>";
+    }
+})->where('nome', '[A-Za-z]+')->where('n', '[0-9]+');
