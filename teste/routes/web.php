@@ -45,16 +45,31 @@ Route::get('/rotacomregras/{nome}/{n}', function ($nome, $n) {
  * O metodo "group" reune todas as rotas que serao precedidas da rota implementada no prefix.
  * Desta forma, criando rotas filas, com seus respectivos metodos.
  */
-Route::prefix('/app')->group(function() {
+
+/*
+ * O método "name" faz o que chamamos de nomear uma rota. Desta forma, nos arquivos blade, por exemplo,
+ * podemos chamar uma funcao Helper para acessarmos a rota que desejamos (route('nomeDaRota')).
+ * Bastante útil quando estamos lidando com aplicações cuja rota pode ser alterada.
+ */
+Route::prefix('/aplicacao')->group(function() {
     Route::get('/', function () {
         return view('app');
-    });
+    })->name('app');
 
     Route::get('/user', function () {
         return view('user');
-    });
+    })->name('app.user');
 
     Route::get('/profile', function () {
         return view('profile');
-    });
+    })->name('app.profile');
 });
+
+Route::get('/produtos', function() {
+    echo "<h1>Produtos</h1>";
+    echo "<ol>";
+    echo "<li>Notebook</li>";
+    echo "<li>Impressora</li>";
+    echo "<li>Mouse</li>";
+    echo "</ol>";
+})->name('meusprodutos');
