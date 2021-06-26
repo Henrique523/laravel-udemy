@@ -39,3 +39,22 @@ Route::get('/rotacomregras/{nome}/{n}', function ($nome, $n) {
       echo "Ola! Seja bem vindo, $nome! <br>";
     }
 })->where('nome', '[A-Za-z]+')->where('n', '[0-9]+');
+
+/*
+ * A funcao estatica "prefix" cria um caminho para as rotas que serao agrupadas.
+ * O metodo "group" reune todas as rotas que serao precedidas da rota implementada no prefix.
+ * Desta forma, criando rotas filas, com seus respectivos metodos.
+ */
+Route::prefix('/app')->group(function() {
+    Route::get('/', function () {
+        return view('app');
+    });
+
+    Route::get('/user', function () {
+        return view('user');
+    });
+
+    Route::get('/profile', function () {
+        return view('profile');
+    });
+});
