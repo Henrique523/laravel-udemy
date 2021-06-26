@@ -21,3 +21,10 @@ Route::get('/', function () {
 Route::get('/ola/{nome}/{sobrenome}', function ($nome, $sobrenome) {
     echo "Ola! Seja bem vindo, " . $nome . " " . $sobrenome . "!";
 });
+
+// Ao passar interrogacao para o parametro, este passa a ser opcional.
+Route::get('/seunome/{nome?}', function ($nome = null) {
+    if (isset($nome))
+        return "Ola! Seja bem vindo, " . $nome . "!";
+    echo "Nao foi passado nenhum parametro.";
+});
