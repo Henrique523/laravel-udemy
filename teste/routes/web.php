@@ -73,3 +73,14 @@ Route::get('/produtos', function() {
     echo "<li>Mouse</li>";
     echo "</ol>";
 })->name('meusprodutos');
+
+/*
+ * Há duas formas de redirecionar rotas no Laravel.
+ * A primeira forma é usando o método estático redirect (Route::redirect), que fará o redirecionamento direto da rota.
+ * A segunda forma é redirecionando dentro de um método, como o Route::get abaixo. Dessa forma, podemos tratar
+ * os dados, ou realizar outras tarefas antes da rota ser redirecionada.
+ */
+Route::redirect('todosprodutos1', 'produtos', 301);
+Route::get('todosprodutos2', function() {
+    return redirect()->route('meusprodutos');
+});
