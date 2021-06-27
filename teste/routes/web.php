@@ -18,6 +18,12 @@ Route::get('/multiplicar/{n1}/{n2}', 'MeuControlador@multiplicar')
     ->where('n1', '[0-9]+')
     ->where('n2', '[0-9]+');
 
+/*
+ * Resource associa todos os métodos padrão do controler listado.
+ * Para visualizar as rotas especificamente, basta digitar o código php artisan route:list
+ */
+Route::resource('clientes', 'ClienteControlador');
+
 //// Parâmetro para a rota
 //// O nome da variável passada para a funcao anonima nao precisa ser o nome dito na rota,
 //// apesar de ser recomendado

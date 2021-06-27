@@ -7,15 +7,21 @@ use Illuminate\Http\Response;
 
 class ClienteControlador extends Controller
 {
+    private $clientes = [
+        ['id' => 1, 'nome' => 'Ademir'],
+        ['id' => 2, 'nome' => 'João'],
+        ['id' => 3, 'nome' => 'Maria'],
+    ];
 
-    public function index(): Response
+    public function index()
     {
-        //
+       $clientes = $this->clientes;
+       return view('clientes.index', compact(['clientes']));
     }
 
     public function create(): Response
     {
-        //
+
     }
 
     public function store(Request $request): Response
