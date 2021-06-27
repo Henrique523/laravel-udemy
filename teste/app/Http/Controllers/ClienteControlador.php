@@ -55,22 +55,29 @@ class ClienteControlador extends Controller
         return redirect()->route('clientes.index');
     }
 
-    public function show(int $id): Response
+    public function show(int $id)
     {
-        //
+        $clientes = session('clientes');
+        $cliente = $clientes[$id - 1];
+        return view('clientes.info', compact(['cliente']));
     }
 
-    public function edit(int $id): Response
+    public function edit(int $id)
     {
-        //
+        $clientes = session('clientes');
+        $cliente = $clientes[$id - 1];
+        return view('clientes.edit', compact(['cliente']));
     }
 
-    public function update(Request $request, int $id): Response
+    public function update(Request $request, int $id)
     {
-        //
+        $clientes = session('clientes');
+        $clientes[$id - 1]['nome'] = $request->nome;
+        session(['clientes' => $clientes]);
+        return redirect()->route('clientes.index');
     }
 
-    public function destroy(int $id): Response
+    public function destroy(int $id)
     {
         //
     }
