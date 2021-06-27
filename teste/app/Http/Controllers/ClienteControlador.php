@@ -19,14 +19,20 @@ class ClienteControlador extends Controller
        return view('clientes.index', compact(['clientes']));
     }
 
-    public function create(): Response
+    public function create()
     {
-
+        return view('clientes.create');
     }
 
-    public function store(Request $request): Response
+    public function store(Request $request)
     {
-        //
+        $dados = [
+            'id' => count($this->clientes) + 1,
+            'nome' => $request->nome,
+        ];
+        $this->clientes[] = $dados;
+
+        return redirect()->route('clientes.index');
     }
 
     public function show(int $id): Response
