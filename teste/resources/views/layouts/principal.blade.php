@@ -5,8 +5,45 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Views</title>
+    <link rel="stylesheet" href="{{asset('css/principal.css')}}">
 </head>
 <body>
-    @yield('conteudo')
+    <div class="row">
+        <div class="col1">
+            <div class="menu">
+                <ul>
+                    <li>
+                        <a
+                            class="{{ request()->routeIs('clientes.*') ? 'active' : '' }}"
+                            href="{{ route('clientes.index')}}"
+                        >
+                            Clientes
+                        </a>
+                    </li>
+
+                    <li>
+                        <a
+                            href="{{ route('produtos')}}"
+                            class="{{ request()->routeIs('produtos') ? 'active' : '' }}"
+                        >
+                            Produtos
+                        </a>
+                    </li>
+
+                    <li>
+                        <a
+                            class="{{ request()->routeIs('departamentos') ? 'active' : '' }}"
+                            href="{{ route('departamentos')}}"
+                        >
+                            Departamentos
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col2">
+            @yield('conteudo')
+        </div>
+    </div>
 </body>
 </html>
