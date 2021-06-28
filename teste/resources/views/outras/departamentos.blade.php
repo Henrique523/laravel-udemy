@@ -11,7 +11,9 @@
     <li>Roupas</li>
 </ul>
 
-@component('components.alerta')
+@component('components.alerta', ['titulo' => 'Erro fatal', 'tipo' => 'warning'])
+    <p><strong>Erro inesperado</strong></p>
+    <p>Ocorreu um erro inesperado</p>
 @endcomponent
 
 @endsection
