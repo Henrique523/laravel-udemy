@@ -11,4 +11,7 @@
     <li>Roupas</li>
 </ul>
 
+@component('components.alerta')
+@endcomponent
+
 @endsection
