@@ -11,7 +11,14 @@ Route::get('/', function () {
  * Para passar o controller na rota, basta passá-lo como uma string.
  * Para separar o nome do controller do método dele que será chamado, basta usar @
  */
-Route::get('/produtos', 'MeuControlador@produtos');
+Route::get('/produtos', function () {
+    return view('outras.produtos');
+})->name('produtos');
+
+Route::get('/departamentos', function () {
+    return view('outras.departamentos');
+})->name('departamentos');
+
 Route::get('/nome', 'MeuControlador@getNome');
 Route::get('/idade', 'MeuControlador@getIdade');
 Route::get('/multiplicar/{n1}/{n2}', 'MeuControlador@multiplicar')
