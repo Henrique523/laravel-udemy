@@ -30,6 +30,7 @@ class ClienteControlador extends Controller
     public function index()
     {
        $clientes = session('clientes');
+       $titulo = 'Listagem de clientes';
 
 //       return view('clientes.index',
 //       [
@@ -41,7 +42,7 @@ class ClienteControlador extends Controller
 //           ->with('clientes', $clientes)
 //           ->with('titulo', "Listagem de clientes");
 
-       return view('clientes.index', compact(['clientes']));
+       return view('clientes.index', compact(['clientes', 'titulo']));
     }
 
     public function create()
