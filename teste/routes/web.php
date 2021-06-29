@@ -29,6 +29,10 @@ Route::get('opcoes/{opcao?}', function($opcao = null) {
     return view('outras.opcoes', compact(['opcao']));
 })->name('opcoes');
 
+Route::get('bootstrap', function() {
+    return view('outras.exemplo');
+});
+
 /*
  * Resource associa todos os métodos padrão do controler listado.
  * Para visualizar as rotas especificamente, basta digitar o código php artisan route:list
