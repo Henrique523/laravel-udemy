@@ -25,6 +25,10 @@ Route::get('/multiplicar/{n1}/{n2}', 'MeuControlador@multiplicar')
     ->where('n1', '[0-9]+')
     ->where('n2', '[0-9]+');
 
+Route::get('opcoes/{opcao?}', function($opcao = null) {
+    return view('outras.opcoes', compact(['opcao']));
+})->name('opcoes');
+
 /*
  * Resource associa todos os métodos padrão do controler listado.
  * Para visualizar as rotas especificamente, basta digitar o código php artisan route:list

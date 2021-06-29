@@ -38,6 +38,14 @@
                             Departamentos
                         </a>
                     </li>
+                    <li>
+                        <a
+                            class="{{ request()->routeIs('opcoes') ? 'active' : '' }}"
+                            href="{{ route('opcoes')}}"
+                        >
+                            Opções
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
