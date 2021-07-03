@@ -86,10 +86,18 @@ especificada no primeiro parâmetro seja igual o valor passado no segundo;
 coluna name possua valor igual a LG;
  - `Model::whereBetween('id', 1, 3)->get()`: retorna uma **collection** com todos os registros
    cuja coluna id contenha valores no intervalo de 1 a 3;
- - `Model::whereNotBetween('id', 1, 3)->get()`:retorna uma **collection** com todos os registros
+ - `Model::whereNotBetween('id', 1, 3)->get()`: retorna uma **collection** com todos os registros
    cuja coluna id contenha valores que não estão no intervalo de 1 a 3;
- - `Model::whereNotIn('id', [1,3])->get()`:retorna uma **collection** com todos os registros
+ - `Model::whereNotIn('id', [1,3])->get()`: retorna uma **collection** com todos os registros
    cuja coluna id contenha valores que não são 1 ou 3;
- - `Model::whereIn('id', [1,3])->get()`:retorna uma **collection** com todos os registros
-  cuja coluna id contenha valores que são 1 ou 3;  
+ - `Model::whereIn('id', [1,3])->get()`: retorna uma **collection** com todos os registros
+  cuja coluna id contenha valores que são 1 ou 3;
+   
+---
+### Usando LIKE
+
+ - `Model::where('name', 'like', '%e%')->get()`: retorna uma **collection** com
+todos os registros cuja coluna name possua a letra "e" no meio da palavra;
+ - `Model::where('name', 'like', "%$var%")`: retorna uma **collection** com todos os registros cuja coluna name possua
+o valor da variável $var em algum momento na palavra.
 ---
