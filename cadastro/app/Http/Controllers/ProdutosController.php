@@ -2,39 +2,36 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categoria;
+use App\Models\Produto;
 use Illuminate\Http\Request;
 
 class ProdutosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        return view('produtos.index');
+        $produtos = Produto::with('categoria')->get();
+
+        return view('produtos.index', compact('produtos'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        $categorias = Categoria::all();
+        return view('produtos.create', compact('categorias'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        Produto::create([
+            'nome' => $request->nomeProduto,
+            'preco' => $request->precoProduto,
+            'estoque' => (int) $request->estoqueProduto,
+            'categoria_id' => $request->categoriaProduto,
+        ]);
+
+        return redirect()->route('produtos.index');
     }
 
     /**
@@ -48,37 +45,44 @@ class ProdutosController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $produto = Produto::with('categoria')
+            ->find($id);
+
+        $categorias = Categoria::all();
+
+        if (isset($produto) && isset($produto)) {
+            return view('produtos.create', compact('categorias', 'produto'));
+        }
+
+        return redirect()->route('produtos.index');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $produto = Produto::find($id);
+
+        if(isset($produto)) {
+            $produto->update([
+                'nome' => $request->nomeProduto,
+                'preco' => $request->precoProduto,
+                'estoque' => (int) $request->estoqueProduto,
+                'categoria_id' => $request->categoriaProduto,
+            ]);
+
+            return redirect()->route('produtos.index');
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $produto = Produto::find($id);
+
+        if (isset($produto)) {
+            $produto->delete();
+        }
+
+        return redirect()->route('produtos.index');
     }
 }

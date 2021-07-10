@@ -1,6 +1,7 @@
 @extends('layout.app', ["current" => "categorias"])
 
 @section('body')
+    <h3 class="card-title mb-4">Cadastro de Categorias</h3>
     <div class="card border">
         <div class="card-header">
             <div class="row my-4">
@@ -8,7 +9,6 @@
             </div>
         </div>
         <div class="card-body">
-            <h5 class="card-title">Cadastro de Categorias</h5>
             @if(count($categorias) > 0)
                 <table class="table table-ordered table-hover">
                     <thead>
