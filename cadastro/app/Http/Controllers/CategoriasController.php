@@ -38,27 +38,26 @@ class CategoriasController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $categoria = Categoria::find($id);
+        if (isset($categoria)) {
+            return view('categorias.create', compact('categoria'));
+        }
+
+        return redirect()->route('categorias.index');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $categoria = Categoria::find($id);
+
+        if (isset($categoria)) {
+            $categoria->update([
+                'nome' => $request->input('nomeCategoria'),
+            ]);
+            return redirect()->route('categorias.index');
+        }
     }
 
     public function destroy($id)
