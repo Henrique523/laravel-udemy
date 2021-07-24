@@ -13,6 +13,11 @@ class CategoriasController extends Controller
         return view('categorias.index', compact('categorias'));
     }
 
+    public function indexJson()
+    {
+        return json_encode(Categoria::all());
+    }
+
     public function create()
     {
         return view('categorias.create');

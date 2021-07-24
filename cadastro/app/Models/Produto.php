@@ -13,6 +13,11 @@ class Produto extends Model
         'categoria_id',
     ];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+
     public function categoria()
     {
         return $this->belongsTo(Categoria::class, 'categoria_id');

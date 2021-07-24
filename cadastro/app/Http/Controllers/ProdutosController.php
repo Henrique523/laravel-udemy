@@ -9,11 +9,16 @@ use Illuminate\Http\Request;
 class ProdutosController extends Controller
 {
 
+    public function indexView()
+    {
+        return view('produtos.index');
+    }
+
     public function index()
     {
         $produtos = Produto::with('categoria')->get();
 
-        return view('produtos.index', compact('produtos'));
+        return $produtos->toJson();
     }
 
     public function create()
@@ -24,25 +29,25 @@ class ProdutosController extends Controller
 
     public function store(Request $request)
     {
-        Produto::create([
+        $novoProduto = Produto::create([
             'nome' => $request->nomeProduto,
             'preco' => $request->precoProduto,
             'estoque' => (int) $request->estoqueProduto,
             'categoria_id' => $request->categoriaProduto,
         ]);
 
-        return redirect()->route('produtos.index');
+        return Produto::with('categoria')->find($novoProduto->id)->first();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $produto = Produto::find($id);
+
+        if (isset($produto)) {
+            return $produto->toJson();
+        }
+
+        return response('Produto não encontrado', 404);
     }
 
     public function edit($id)
@@ -61,18 +66,20 @@ class ProdutosController extends Controller
 
     public function update(Request $request, $id)
     {
-        $produto = Produto::find($id);
+        $produto = Produto::with('categoria')->find($id);
 
         if(isset($produto)) {
             $produto->update([
-                'nome' => $request->nomeProduto,
-                'preco' => $request->precoProduto,
-                'estoque' => (int) $request->estoqueProduto,
-                'categoria_id' => $request->categoriaProduto,
+                'nome' => $request->input('nomeProduto'),
+                'preco' => $request->input('precoProduto'),
+                'estoque' => (int) $request->input('estoqueProduto'),
+                'categoria_id' => $request->input('categoriaProduto'),
             ]);
 
-            return redirect()->route('produtos.index');
+            return $produto->toJson();
         }
+
+        return response('Produto não encontrado', 404);
     }
 
     public function destroy($id)
@@ -81,8 +88,9 @@ class ProdutosController extends Controller
 
         if (isset($produto)) {
             $produto->delete();
+            return response('Produto deletado com sucesso');
         }
 
-        return redirect()->route('produtos.index');
+        return response('Produto não encontrado', 404);
     }
 }
