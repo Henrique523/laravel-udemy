@@ -21,6 +21,7 @@
             <div class="card text-center rounded">
                 <div class="card-header">Tabela de Clientes</div>
                 <div class="card-body">
+                    <h5 class="card-title" id="card-title"></h5>
                     <table class="table table-hover" id="tabela-clientes">
                         <thead>
                             <th scope="col">#</th>
@@ -35,11 +36,6 @@
                 <div class="card-footer">
                     <nav id="paginator">
                         <ul class="pagination">
-                            {{-- <li class="page-item"><a class="page-link" href="#">{{ '<' }}</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">{{ '>' }}</a></li> --}}
                         </ul>
                     </nav>
                 </div>
@@ -67,31 +63,48 @@
 
             function montarItemPaginacao(response, pagina) {
                 return `<li class="page-item ${pagina === response.current_page ? 'active' : ''}">
-                            <a class="page-link" href="#">${pagina}</a>
+                            <a class="page-link" data-pagina=${pagina}>${pagina}</a>
                         </li>`;
             }
 
             function montarItemNextOuPrevious(whatIs, response) {
                 return whatIs === 'previous' ?
                     `<li class="page-item ${response.current_page === 1 ? 'disabled' : ''}">
-                        <a class="page-link" href="#">{{ '<' }}</a>
+                        <a class="page-link" data-pagina=${response.current_page - 1}>{{ '<' }}</a>
                     </li>` :
                     `<li class="page-item ${response.current_page === response.last_page ? 'disabled' : ''}">
-                        <a class="page-link" href="#">{{ '>' }}</a>
+                        <a class="page-link" data-pagina=${response.current_page + 1}>{{ '>' }}</a>
                     </li>`
             }
 
             function montarPaginator(response) {
                 montarNextOrPrevious('previous', response);
-
                 let inicio = 1;
                 let fim = 10;
+
+                if (response.current_page >= 6) {
+                    inicio = response.current_page - 4;
+                    fim = response.current_page + 5;
+                }
+
+                if (response.current_page >= response.last_page - 5) {
+                    console.log(inicio, fim);
+                    console.log(response);
+                    inicio = response.last_page - 9;
+                    fim = response.last_page;
+                }
+
                 for (let i = inicio; i <= fim; i++) {
                     const linkPagina = montarItemPaginacao(response, i);
                     $('#paginator>ul').append(linkPagina);
                 }
 
                 montarNextOrPrevious('next', response);
+
+                $('#paginator>ul>li>a').click(function() {
+                    carregarclientes($(this).data('pagina'));
+                });
+
             }
 
             function montarNextOrPrevious(whatIs, response) {
@@ -107,11 +120,12 @@
                 $.get('/json', { page: pagina }, function(response) {
                     montarTabela(response);
                     montarPaginator(response);
+                    $('#card-title').html(`Exibindo ${response.per_page} de ${response.total} - Item ${response.from} a ${response.to}`);
                 });
             }
 
             $(function() {
-                carregarclientes(8);
+                carregarclientes(1);
             });
         </script>
     </body>
