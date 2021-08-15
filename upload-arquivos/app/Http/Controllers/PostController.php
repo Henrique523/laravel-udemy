@@ -49,6 +49,16 @@ class PostController extends Controller
         return redirect('/');
     }
 
+    public function download(Post $post)
+    {
+        $path = Storage::disk('public')
+            ->getDriver()
+            ->getAdapter()
+            ->applyPathPrefix($post->arquivo);
+
+        return response()->download($path);
+    }
+
     /**
      * Display the specified resource.
      *
