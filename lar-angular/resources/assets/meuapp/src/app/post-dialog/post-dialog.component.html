@@ -1,0 +1,45 @@
+<div fxLayout="column" fxLayoutAlign="space-around left">
+    <div fxLayout="row" fxLayoutAlign="space-between">
+        <mat-form-field fxFlex="50">
+            <input matInput placeholder="Seu nome" [(ngModel)]="dados.post.nome">
+            <mat-hint>Digite seu nome</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="40">
+            <input matInput placeholder="Seu email" [(ngModel)]="dados.post.email">
+            <mat-hint>Digite seu email</mat-hint>
+        </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between">
+        <mat-form-field fxFlex="50">
+            <input matInput placeholder="Título da mensagem" [(ngModel)]="dados.post.titulo">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="40">
+            <input matInput placeholder="Subtítulo da mensgem" [(ngModel)]="dados.post.subtitulo">
+        </mat-form-field>
+    </div>
+
+    <mat-form-field>
+       <textarea matInput placeholder="Deixe aqui sua mensagem" [(ngModel)]="dados.post.mensagem"></textarea>
+    </mat-form-field>
+</div>
+
+<input type="file" style="display: none;" (change)="mudouArquivo($event)" #fileinput>
+<button mat-stroked-button color="primary" (click)="fileinput.click()">
+    <mat-icon>photo_camera</mat-icon>
+    Adicionar uma Foto
+</button>
+
+<p *ngIf="nomeArquivo !== ''">
+    <strong>Arquivo: </strong> {{ nomeArquivo }}
+    <mat-icon color="primary">done</mat-icon>
+</p>
+
+<br><br>
+
+<div style="text-align: center">
+    <button mat-raised-button color="primary" (click)="salvar()">OK</button>
+    <button mat-raised-button color="warn" style="margin-left: 8px;" (click)="cancelar()">Cancelar</button>
+</div>
