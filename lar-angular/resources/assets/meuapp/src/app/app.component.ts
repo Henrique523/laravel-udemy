@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Post } from './post';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'meuapp';
+
+  public posts: Post[] = [
+    new Post('Joao', 'Meu post', 'Sub Joao', 'joao@gmail.com', 'Minha msg'),
+    new Post('Paulo', 'Post do Paulo', 'Sub Paulo', 'paulo@gmail.com', 'Msg do Paulo'),
+    new Post('Maria', 'Post da Maria', 'Sub Maria', 'maria@gmail.com', 'Msg da Maria'),
+    new Post('Joao', 'Meu post', 'Sub Joao', 'joao@gmail.com', 'Minha msg'),
+    new Post('Paulo', 'Post do Paulo', 'Sub Paulo', 'paulo@gmail.com', 'Msg do Paulo'),
+    new Post('Maria', 'Post da Maria', 'Sub Maria', 'maria@gmail.com', 'Msg da Maria'),
+    new Post('Paulo', 'Post do Paulo', 'Sub Paulo', 'paulo@gmail.com', 'Msg do Paulo'),
+    new Post('Maria', 'Post da Maria', 'Sub Maria', 'maria@gmail.com', 'Msg da Maria'),
+  ];
 }
