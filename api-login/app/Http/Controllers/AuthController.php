@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\EventNovoRegistro;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -20,9 +22,12 @@ class AuthController extends Controller
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
+            'token' => Str::random(60),
         ]);
 
         $user->save();
+
+        event(new EventNovoRegistro($user));
 
         return response()->json(['res' => 'Usuario criado com sucesso'], 201);
     }
@@ -37,6 +42,7 @@ class AuthController extends Controller
         $credenciais = [
             'email' => $request->input('email'),
             'password' => $request->input('password'),
+            'active' => 1,
         ];
 
         if (! Auth::attempt($$credenciais)) {
@@ -55,5 +61,19 @@ class AuthController extends Controller
     {
         $request->user()->token()->revoke();
         return response()->json(['res' => 'Deslogado com sucesso']);
+    }
+
+    public function ativarRegistro(User $user, string $token)
+    {
+        if ($user->token === $token) {
+            $user->update([
+                'active' => true,
+                'token' => '',
+            ]);
+
+            return view('registroAtivo');
+        }
+
+        return view('registroErro');
     }
 }
